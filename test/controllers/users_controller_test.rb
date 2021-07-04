@@ -13,6 +13,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
   
+  test "should redirect index when not logged in" do
+    get users_path
+    assert_redirected_to login_url
+  end  
+
   test "should redirect edit when not logged in" do
     get edit_user_path(@user)
     assert_not flash.empty?
@@ -25,6 +30,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
     assert_redirected_to login_url
   end
+  
   
   test "should redirect edit when logged in as wrong user" do
     log_in_as(@other_user)
@@ -41,6 +47,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
   
+  
+
 end
 
 
